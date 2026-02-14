@@ -92,20 +92,8 @@ export default class TitleScene extends Phaser.Scene {
     this.input.keyboard.once('keydown-ENTER', startGame)
     this.input.keyboard.once('keydown-SPACE', startGame)
 
-    // small ambient particles (embers feel)
-    const particles = this.add.particles(null)
-    const emitter = particles.createEmitter({
-      x: { min: 0, max: w },
-      y: h + 10,
-      speedY: { min: -120, max: -40 },
-      lifespan: { min: 2000, max: 4000 },
-      scale: { start: 0.6, end: 0 },
-      alpha: { start: 0.8, end: 0 },
-      quantity: 1,
-      tint: [0x9c7e51, 0x345479],
-      blendMode: 'ADD'
-    })
-
+    // ambient embers removed: Phaser particle API changed causing runtime error
+    // (If desired later, re-add particles using a compatible texture or updated API.)
     // Press hint
     this.add.text(w/2, h*0.86, 'Press ENTER or click Start', {
       fontFamily: 'Arial, sans-serif',
