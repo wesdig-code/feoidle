@@ -9,24 +9,8 @@ export default class TitleScene extends Phaser.Scene {
     const w = this.scale.width
     const h = this.scale.height
 
-    // Create a canvas texture with a vertical gradient (top -> bottom)
-    const tex = this.textures.createCanvas('titleGradient', w, h)
-    const ctx = tex.getContext()
-    const grad = ctx.createLinearGradient(0, 0, 0, h)
-    grad.addColorStop(0, '#345479')
-    grad.addColorStop(0.5, '#9c7e51')
-    grad.addColorStop(1, '#131313')
-    ctx.fillStyle = grad
-    ctx.fillRect(0, 0, w, h)
-    tex.refresh()
-
-    this.add.image(0, 0, 'titleGradient').setOrigin(0)
-
-    // subtle vignette
-    const vignette = this.add.graphics()
-    vignette.fillStyle(0x000000, 0.6)
-    vignette.fillEllipse(w/2, h/2 + 40, w*0.9, h*0.9)
-    vignette.setBlendMode(Phaser.BlendModes.MULTIPLY)
+    // Solid background color
+    this.cameras.main.setBackgroundColor(0x131313)
 
     // Title
     const title = this.add.text(w/2, h*0.28, 'Feoidle', {
