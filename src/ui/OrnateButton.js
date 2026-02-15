@@ -20,16 +20,20 @@ export default class OrnateButton extends Phaser.GameObjects.Container {
 
     this.add([image, text])
     this.setSize(width, height)
-    this.setInteractive(new Phaser.Geom.Rectangle(-width / 2, -height / 2, width, height), Phaser.Geom.Rectangle.Contains)
 
-    this.on('pointerover', () => {
+    image.setInteractive({ useHandCursor: true })
+    image.on('pointerover', (pointer) => {
       image.setTint(0xf2c98d)
       scene.tweens.add({ targets: this, scale: 1.03, duration: 120 })
+      this.emit('pointerover', pointer)
     })
-    this.on('pointerout', () => {
+    image.on('pointerout', (pointer) => {
       image.clearTint()
       scene.tweens.add({ targets: this, scale: 1.0, duration: 120 })
+      this.emit('pointerout', pointer)
     })
+    image.on('pointerdown', (pointer) => this.emit('pointerdown', pointer))
+    image.on('pointerup', (pointer) => this.emit('pointerup', pointer))
 
     scene.add.existing(this)
   }
