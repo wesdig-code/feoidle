@@ -6,6 +6,17 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    /** @typedef {{ level: number, strength: number, dexterity: number, intelligence: number, vitality: number, armor: number }} PlayerStats */
+    /** @type {PlayerStats} */
+    const playerStats = {
+      level: 1,
+      strength: 1,
+      dexterity: 1,
+      intelligence: 1,
+      vitality: 1,
+      armor: 1
+    }
+
     const w = this.scale.width
     const h = this.scale.height
 
@@ -56,15 +67,12 @@ export default class MainScene extends Phaser.Scene {
     drawPanel(leftX, leftY, leftW, leftH)
 
     const statText = [
-      'Level: 70 (2647)',
-      'Strength: 77',
-      'Dexterity: 1039',
-      'Intelligence: 21,620',
-      'Vitality: 6177',
-      '',
-      'Damage: 4,897,302',
-      'Toughness: 24,393,004',
-      'Recovery: 1,187,535'
+      `Level: ${playerStats.level}`,
+      `Strength: ${playerStats.strength}`,
+      `Dexterity: ${playerStats.dexterity}`,
+      `Intelligence: ${playerStats.intelligence}`,
+      `Vitality: ${playerStats.vitality}`,
+      `Armor: ${playerStats.armor}`
     ]
 
     this.add.text(leftX + 14, leftY + 14, statText.join('\n'), {
