@@ -13,10 +13,8 @@ export default class MainScene extends Phaser.Scene {
 
     const g = this.add.graphics()
     const gold = 0xd6b074
-    const dark = 0x1b1b1b
     const panel = 0x2a1b16
     const panelLight = 0x3a261f
-    const parchment = 0xc3a982
 
     const drawPanel = (x, y, width, height) => {
       g.fillStyle(panel, 1)
@@ -34,21 +32,27 @@ export default class MainScene extends Phaser.Scene {
       g.strokeRect(x + 1, y + 1, size - 2, size - 2)
     }
 
-    // Top bar
-    drawPanel(20, 20, w - 40, 90)
-    this.add.text(w / 2, 65, 'INVENTORY', {
+    // Inventory column (25% width, left side)
+    const margin = 20
+    const colW = Math.max(240, Math.floor(w * 0.25) - margin)
+    const colX = margin
+    const topBarH = 70
+
+    // Top bar (left column)
+    drawPanel(colX, margin, colW, topBarH)
+    this.add.text(colX + colW / 2, margin + topBarH / 2, 'INVENTORY', {
       fontFamily: 'Georgia, serif',
-      fontSize: '28px',
+      fontSize: '22px',
       color: '#f4e1b5',
       stroke: '#2b120a',
       strokeThickness: 4
     }).setOrigin(0.5)
 
     // Left stats panel
-    const leftX = 20
-    const leftY = 120
-    const leftW = 220
-    const leftH = 430
+    const leftX = colX
+    const leftY = margin + topBarH + 10
+    const leftW = colW
+    const leftH = 300
     drawPanel(leftX, leftY, leftW, leftH)
 
     const statText = [
@@ -63,65 +67,33 @@ export default class MainScene extends Phaser.Scene {
       'Recovery: 1,187,535'
     ]
 
-    this.add.text(leftX + 16, leftY + 18, statText.join('\n'), {
+    this.add.text(leftX + 14, leftY + 14, statText.join('\n'), {
       fontFamily: 'Arial, sans-serif',
-      fontSize: '14px',
+      fontSize: '13px',
       color: '#e6d9c2',
       lineSpacing: 8
     })
 
-    // Center parchment (character silhouette)
-    const paperX = leftX + leftW + 20
-    const paperY = leftY
-    const paperW = 320
-    const paperH = 430
-    g.fillStyle(parchment, 1)
-    g.fillRect(paperX, paperY, paperW, paperH)
-    g.lineStyle(2, 0x6d4c2f, 1)
-    g.strokeRect(paperX + 2, paperY + 2, paperW - 4, paperH - 4)
-
-    // Simple character placeholder
-    g.fillStyle(0x6d4c2f, 1)
-    g.fillRect(paperX + paperW / 2 - 22, paperY + 80, 44, 140)
-    g.fillRect(paperX + paperW / 2 - 60, paperY + 120, 120, 30)
-    g.fillRect(paperX + paperW / 2 - 30, paperY + 220, 60, 140)
-
-    // Equipment slots (right column)
-    const rightX = paperX + paperW + 20
-    const rightY = leftY
-    const rightW = 220
-    const rightH = 430
-    drawPanel(rightX, rightY, rightW, rightH)
-
-    const slotSize = 56
-    const slotGap = 10
-    let slotY = rightY + 20
-    for (let i = 0; i < 6; i++) {
-      drawSlot(rightX + 20, slotY, slotSize)
-      drawSlot(rightX + 20 + slotSize + slotGap, slotY, slotSize)
-      slotY += slotSize + slotGap
-    }
-
     // Bottom inventory grid
-    const gridX = 20
-    const gridY = leftY + leftH + 20
-    const gridW = w - 40
-    const gridH = h - gridY - 20
+    const gridX = colX
+    const gridY = leftY + leftH + 10
+    const gridW = colW
+    const gridH = h - gridY - margin
     drawPanel(gridX, gridY, gridW, gridH)
 
-    const cols = Math.floor((gridW - 40) / 54)
-    const rows = Math.floor((gridH - 40) / 54)
-    const startX = gridX + 20
-    const startY = gridY + 20
+    const cols = Math.max(1, Math.floor((gridW - 24) / 48))
+    const rows = Math.max(1, Math.floor((gridH - 24) / 48))
+    const startX = gridX + 12
+    const startY = gridY + 12
 
     for (let r = 0; r < rows; r++) {
       for (let c = 0; c < cols; c++) {
-        drawSlot(startX + c * 54, startY + r * 54, 48)
+        drawSlot(startX + c * 48, startY + r * 48, 44)
       }
     }
 
     // Footer hint
-    this.add.text(w - 24, h - 16, 'Gold: 134,211,268,538', {
+    this.add.text(colX + colW - 12, h - 12, 'Gold: 134,211,268,538', {
       fontFamily: 'Arial, sans-serif',
       fontSize: '14px',
       color: '#e6d9c2'
