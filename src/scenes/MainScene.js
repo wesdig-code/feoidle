@@ -100,11 +100,5 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
-    // Footer hint
-    this.add.text(colX + colW - 12, h - 12, 'Gold: 134,211,268,538', {
-      fontFamily: 'Arial, sans-serif',
-      fontSize: '14px',
-      color: '#e6d9c2'
-    }).setOrigin(1, 1)
   }
 }
