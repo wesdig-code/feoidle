@@ -109,7 +109,8 @@ export default class MainScene extends Phaser.Scene {
     }
 
     // Inventory toggle button (bottom center)
-    let inventoryVisible = true
+    let inventoryVisible = false
+    inventoryContainer.setVisible(inventoryVisible)
     const toggleBtn = new OrnateButton(this, 'Inventaire', w / 2, h - 40, 220, 52, {
       fontSize: '20px'
     })
