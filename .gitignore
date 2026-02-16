@@ -2,3 +2,5 @@ node_modules/
 dist/
 /.idea/
 /.vscode/
+/assets/button.png
+/assets/inventaire.png
