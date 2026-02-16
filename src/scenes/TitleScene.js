@@ -6,12 +6,18 @@ export default class TitleScene extends Phaser.Scene {
     super('TitleScene')
   }
 
+  preload() {
+    this.load.image('treeTile', 'assets/Puny-Characters/Environment/Tree.png')
+  }
+
   create() {
     const w = this.scale.width
     const h = this.scale.height
 
-    // Solid background color
+    // Tiled background using 16x16 tree sprite
     this.cameras.main.setBackgroundColor(0x131313)
+    const tiledBg = this.add.tileSprite(0, 0, w, h, 'treeTile').setOrigin(0)
+    tiledBg.setAlpha(0.2)
 
     // Title
     const title = this.add.text(w/2, h*0.28, 'Feoidle', {
