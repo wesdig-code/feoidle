@@ -18,6 +18,7 @@ export default class TitleScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(0x131313)
     const tiledBg = this.add.tileSprite(0, 0, w, h, 'treeTile').setOrigin(0)
     tiledBg.setAlpha(0.2)
+    tiledBg.setTileScale(4, 4)
 
     // Title
     const title = this.add.text(w/2, h*0.28, 'Feoidle', {
